@@ -12,12 +12,26 @@ class HtmlDict():
     
     def __init__(self, txt):
         for line in self.get_lines(txt):
-            startLoc=line.fine('<')
-            if (startLoc):
-                endLoc=line.find('>')
-            blk1=line[startLoc:endLoc].replace('<')
-                
-            pass
+            tagS=re.match("(<)(.*?)(>)", line).group(2).split()
+            
+            if len(tagS)>1:
+                #TODO: Get the Tags Properties
+                tagE='</' + tagS[0] + '>'
+                self.__dict__[tagS]={}
+                for d in tagS:
+                    if '=' in d:
+                        pass #TODO get the k,v pair
+                    else:
+                        pass  #TODO : add the field
+                pass
+            else:
+                pass  #TODO:WhatGonnaDo?
+            
+            
+            tagE='</'+tagS+'>'
+            if tagE in txt[txt.find(line):]:
+                pass #TODO: Get the data inside tags
+            
             print(line)
             
         
