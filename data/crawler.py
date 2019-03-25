@@ -5,6 +5,7 @@ Created on Mar 19, 2019
 '''
 import requests
 import re
+import bs4.BeautifulSoup
 
 
 
@@ -39,7 +40,7 @@ class HtmlDict():
                         pass  #TODO : add the field
                 pass
             elif tagL==1: 
-                content=re.match('(<'+tagS[0]+'>)(.*?)'+'(</'+tagS[0]+'>)', line).group(2).split()
+                content=re.match('(<'+tagS[0]+'>)(.*?)'+'(</'+tagS[0]+'>)', txt).group(2).split()
                 print(content)
             
             
