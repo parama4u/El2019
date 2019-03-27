@@ -6,6 +6,7 @@ Created on Mar 19, 2019
 
 import matplotlib.pyplot as plt
 import pandas as pd
+from unittest.mock import inplace
 
 
 class DataReader:
@@ -15,15 +16,18 @@ class DataReader:
         data=pd.read_csv('data//loksabha.csv',delimiter=',')
         print(data)
         
-    @staticmethod    
+    @staticmethod
+        
     def tn_by_party():
         data=pd.read_csv('data//loksabha.csv',delimiter=',')
-        #tn=data[data.NAME.str.contains('Tamil')][data.Position<4][['Year','PARTY','PCNAME','Position']]
-        tn=data[data.NAME.str.contains('Tamil')][data.Position<4][['Year','PARTY','PCNAME','Position','CVOTES']]
-        tn2=tn.groupby('PARTY').cumsum()
-        for r in tn2:
-            print(r)
+        tn=data[data.NAME.str.contains('TAMILNADU')][['Year','PARTY','CVOTES']]
+        tn2=tn.groupby(['Year','PARTY'])['CVOTES'].sum().unstack().plot(kind='bar',stacked=True)
         
+        ax=plt.gca()
+        ax.ticklabel_format(axis='y',style='plain',useOffset=False)
+        plt.legend(loc='center left', bbox_to_anchor=(0.9, 0.5),
+          ncol=2, fancybox=True, shadow=True)
+        plt.show()
         
     
 
